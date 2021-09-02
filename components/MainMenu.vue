@@ -63,7 +63,7 @@ export default {
       }
     },
     goToResume() {
-      window.open('https://djanko.dev/resume', '_blank')
+      window.open('https://djanko.dev/Daniel_Jankowiak_Resume.pdf', '_blank')
     },
     goToStory() {
       this.$notifier.showMessage({
