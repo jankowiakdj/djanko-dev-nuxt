@@ -14,13 +14,14 @@
 
 <script>
 export default {
+  params: ['goToStory'],
   data() {
     return {
       menuItems: [
         {
           icon: 'mdi-timeline-outline',
-          label: 'My Story',
-          action: this.goToStory
+          label: 'Timeline',
+          action: this.$attrs['go-to-story']
         },
         {
           icon: 'mdi-file-document-outline',
@@ -64,11 +65,6 @@ export default {
     },
     goToResume() {
       window.open('https://djanko.dev/Daniel_Jankowiak_Resume.pdf', '_blank')
-    },
-    goToStory() {
-      this.$notifier.showMessage({
-        message: 'Coming Soon'
-      })
     },
     goToLinkedin() {
       window.open('https://www.linkedin.com/in/jankowiakdj/', '_blank')
