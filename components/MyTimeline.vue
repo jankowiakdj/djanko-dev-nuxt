@@ -1,5 +1,8 @@
 <template>
-  <v-timeline class="ma-8 pt-8" :dense="$vuetify.breakpoint.smAndDown">
+  <v-timeline
+    class="mx-0 mx-md-8 ma-8 pt-8"
+    :dense="$vuetify.breakpoint.smAndDown"
+  >
     <v-timeline-item
       v-for="(item, i) in items"
       :key="i"
@@ -18,17 +21,18 @@
         color="#ddd"
         light
         width="auto"
-        transition="scale-transition"
         :class="{ expanded: item.showBody }"
         @click="item.showBody = !item.showBody"
       >
-        <v-card-title class="text-h6 d-flex justify-space-between">
+        <v-card-title
+          class="text-subtitle-2 text-md-h6 d-flex justify-space-between"
+        >
           <div>{{ item.title }}</div>
-          <v-btn text icon>
+          <v-btn text icon small>
             <v-icon>mdi-chevron-down</v-icon>
           </v-btn></v-card-title
         >
-        <v-card-text v-if="item.showBody" transition="scale-transition">
+        <v-card-text v-if="item.showBody">
           <p>
             {{ ipsum }}
           </p>
