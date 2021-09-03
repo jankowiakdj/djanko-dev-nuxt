@@ -1,5 +1,5 @@
 <template>
-  <v-timeline class="ma-8 pt-8" :dense="$vuetify.breakpoint.sm">
+  <v-timeline class="ma-8 pt-8" :dense="$vuetify.breakpoint.smAndDown">
     <v-timeline-item
       v-for="(item, i) in items"
       :key="i"
