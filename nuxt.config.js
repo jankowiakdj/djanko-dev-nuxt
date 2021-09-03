@@ -7,8 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - djanko-dev-nuxt',
-    title: 'djanko-dev-nuxt',
+    title: 'Daniel Jankowiak - Full Stack Developer',
     htmlAttrs: {
       lang: 'en'
     },

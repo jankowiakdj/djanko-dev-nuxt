@@ -1,6 +1,6 @@
 <template>
   <v-timeline
-    class="mx-0 mx-md-8 ma-8 pt-8"
+    class="mx-0 mx-md-8 ma-8 py-8"
     :dense="$vuetify.breakpoint.smAndDown"
   >
     <v-timeline-item
@@ -60,6 +60,14 @@ export default {
           color: 'green lighten-1',
           icon: 'mdi-desktop-tower-monitor',
           title: 'Work in IT',
+          body: '',
+          showBody: false
+        },
+        {
+          date: '2013',
+          color: 'orange darken-2',
+          icon: 'mdi-hockey-sticks',
+          title: 'DTMTS',
           body: '',
           showBody: false
         },
