@@ -3,39 +3,55 @@
     <div v-if="current === 'menu'">
       <v-row justify="center" align="center">
         <v-col cols="12">
-          <v-btn x-large block>New Game</v-btn>
+          <v-btn
+            x-large
+            block
+            @click="
+              deal()
+              current = 'sim'
+            "
+            >Simulate</v-btn
+          >
         </v-col>
         <v-col cols="12">
           <v-btn x-large block @click="current = 'analyze'">Analyze</v-btn>
         </v-col>
-        <v-col cols="12">
+        <!-- <v-col cols="12">
           <v-btn x-large block>Credits</v-btn>
-        </v-col>
+        </v-col> -->
       </v-row>
     </div>
-    <div v-if="current === 'analyze'">
+    <div v-if="current === 'analyze' || current === 'sim'">
       <div class="text-h5">Cards ({{ cards.length }}):</div>
       <div
         v-for="(card, i) in cards"
-        :key="i"
+        :key="`card-1-${i}`"
         class="card"
         :class="attrClasses(card)"
       >
-        SSS
+        {{ cardText(card) }}
       </div>
 
       <div class="text-h5 mt-4">Sets ({{ sets.length }}):</div>
-      <div v-for="(set, i) in sets" :key="i" class="set">
+      <div v-for="(set, i) in sets" :key="`card-2-${i}`" class="set">
         <div
-          v-for="(card, i) in set"
-          :key="i"
+          v-for="(card, j) in set"
+          :key="`card-3-${j}`"
           class="card"
           :class="attrClasses(card)"
         >
-          SSS
+          {{ cardText(card) }}
         </div>
       </div>
+    </div>
 
+    <v-row v-if="current === 'sim'" class="mt-4">
+      <v-col cols="12">
+        <v-btn x-large block @click="deal()">Simulate</v-btn>
+      </v-col>
+    </v-row>
+
+    <div v-if="current === 'analyze'">
       <div class="text-h5 mt-4 mb-2">Add:</div>
 
       <v-row v-if="analyzeStage === 'color'" justify="center" align="center">
@@ -73,18 +89,50 @@
 </template>
 
 <script>
+const COLORS = ['red', 'green', 'purple']
+const SHAPES = ['pill', 'squiggle', 'diamond']
+const NUMBERS = ['one', 'two', 'three']
+const FILL = ['filled', 'empty', 'striped']
+
+class Card {
+  constructor(color, shape, number, fill) {
+    this.color = color
+    this.shape = shape
+    this.number = number
+    this.fill = fill
+  }
+}
+
+class Deck {
+  constructor() {
+    const cards = []
+    for (let c = 0; c < COLORS.length; c++) {
+      for (let s = 0; s < SHAPES.length; s++) {
+        for (let n = 0; n < NUMBERS.length; n++) {
+          for (let f = 0; f < FILL.length; f++) {
+            const card = new Card(COLORS[c], SHAPES[s], NUMBERS[n], FILL[f])
+            cards.push(card)
+          }
+        }
+      }
+    }
+    return cards
+  }
+}
+
 export default {
   data() {
     return {
       current: 'menu',
-      COLORS: ['red', 'green', 'purple'],
-      SHAPES: ['pill', 'squiggle', 'diamond'],
-      NUMBERS: ['one', 'two', 'three'],
-      FILL: ['filled', 'empty', 'striped'],
+      COLORS,
+      SHAPES,
+      NUMBERS,
+      FILL,
       analyzeStage: 'color',
       pending: {},
       cards: [],
-      sets: []
+      sets: [],
+      deck: new Deck()
     }
   },
   head() {
@@ -92,7 +140,6 @@ export default {
       title: 'Set'
     }
   },
-
   mounted() {},
   methods: {
     reset() {
@@ -122,8 +169,6 @@ export default {
       this.resetPending()
     },
     resetPending() {
-      console.log(this.pending)
-      console.log(this.cards)
       this.sets = this.analyze(this.cards)
       this.pending = {}
       this.analyzeStage = 'color'
@@ -131,6 +176,37 @@ export default {
 
     attrClasses(card) {
       return `color-${card.color}`
+    },
+
+    cardText(card) {
+      const chars = {
+        squiggle: 'S',
+        diamond: '♢',
+        pill: '0'
+      }
+      const char = chars[card.shape]
+      let text = char
+      if (card.number === 'two') {
+        text = text + text
+      }
+      if (card.number === 'three') {
+        text = text + text + text
+      }
+      return text
+    },
+
+    deal() {
+      this.deck = new Deck()
+      const cards = []
+      for (let i = 0; i < 12; i++) {
+        const draw = this.deck.splice(
+          Math.floor(Math.random() * this.deck.length),
+          1
+        )[0]
+        cards.push(draw)
+      }
+      this.cards = cards
+      this.sets = this.analyze(this.cards)
     },
 
     analyze(cards) {
@@ -163,6 +239,7 @@ export default {
     },
 
     isValidAttr(cards, attr) {
+      console.log(cards[0], cards[1], cards[2])
       if (
         cards[0][attr] === cards[1][attr] &&
         cards[0][attr] === cards[2][attr]
