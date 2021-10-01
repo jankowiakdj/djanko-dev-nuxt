@@ -9,7 +9,7 @@
     @click="item.action"
     v-on="on"
   >
-    <v-icon large>{{ item.icon }}</v-icon>
+    <v-icon large color="#CCC">{{ item.icon }}</v-icon>
   </v-btn>
 </template>
 

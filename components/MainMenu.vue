@@ -18,11 +18,11 @@ export default {
   data() {
     return {
       menuItems: [
-        {
-          icon: 'mdi-timeline-outline',
-          label: 'Timeline',
-          action: this.$attrs['go-to-story']
-        },
+        // {
+        //   icon: 'mdi-timeline-outline',
+        //   label: 'Timeline',
+        //   action: this.$attrs['go-to-story']
+        // },
         {
           icon: 'mdi-file-document-outline',
           label: 'Resume',

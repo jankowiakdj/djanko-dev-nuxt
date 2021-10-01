@@ -7,7 +7,7 @@
     :class="{ show: show }"
     @click="click"
   >
-    <v-icon large>mdi-chevron-down</v-icon>
+    <v-icon large color="#ccc">mdi-chevron-down</v-icon>
   </v-btn>
 </template>
 

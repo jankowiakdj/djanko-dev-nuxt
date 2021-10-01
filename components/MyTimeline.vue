@@ -11,11 +11,10 @@
       :icon="item.icon"
       fill-dot
       transition="scale-transition"
+      dark
     >
-      <template #opposite>
-        <span class="headline font-weight-bold">{{
-          item.date || 'June, 2010'
-        }}</span>
+      <template v-if="item.date" #opposite>
+        <span class="headline font-weight-bold">{{ item.date }}</span>
       </template>
       <v-card
         color="#ddd"
@@ -27,15 +26,18 @@
         <v-card-title
           class="text-subtitle-2 text-md-h6 d-flex justify-space-between"
         >
-          <div>{{ item.title }}</div>
+          <div>
+            <span v-if="item.date && $vuetify.breakpoint.smAndDown">
+              {{ item.date }} -
+            </span>
+            {{ item.title }}
+          </div>
           <v-btn text icon small>
             <v-icon>mdi-chevron-down</v-icon>
           </v-btn></v-card-title
         >
         <v-card-text v-if="item.showBody">
-          <p>
-            {{ ipsum }}
-          </p>
+          <div v-html="item.body"></div>
         </v-card-text>
       </v-card>
     </v-timeline-item>
@@ -52,63 +54,47 @@ export default {
           color: 'blue',
           icon: 'mdi-school-outline',
           title: 'Graduated',
-          body: '',
+          body: '<p>Graduated from Pennsylvania State University with a Bachelors of Science in Secutrity and Risk Analysis with an option in Information and Cyber Security.</p>',
           showBody: false
         },
         {
           date: '2011-2013',
-          color: 'green lighten-1',
+          color: 'green darken-1',
           icon: 'mdi-desktop-tower-monitor',
-          title: 'Work in IT',
-          body: '',
+          title: 'Information Technology',
+          body: '<p>After Graduating I was in the Information Technology industry for a few years. I was A+, Network+, and Security+ certified and worked for various companies including a Hospital, NiMH Battery Facotry, and Healthcare Non-profit.</p>',
+          showBody: false
+        },
+        {
+          date: 'Feb, 2013',
+          color: 'orange darken-2',
+          icon: 'mdi-hockey-sticks',
+          title: 'My First Website',
+          body: '<p>Don\'t Tell Me The Score (<a target="_blank" href="https://dtmts.com">DTMTS.com</a>) is a spoiler free NHL highlight portal. It was the first website I completed and launched. With many thanks going to <a target="_blank" href="https://josh.mn/">josh.mn</a> for answering all my silly questions and hosting the site in the early days. DTMTS is still running to this day and has served over 25 millions videos</p>',
           showBody: false
         },
         {
           date: '2013',
-          color: 'orange darken-2',
-          icon: 'mdi-hockey-sticks',
-          title: 'DTMTS',
-          body: '',
-          showBody: false
-        },
-        {
-          date: 'April 2013',
           color: 'red',
           icon: 'mdi-controller-classic-outline',
           title: 'MLG Internship',
-          body: '',
+          body: '<p>A three month full time internship at the Major League Gaming Headquarters in New York City. I worked mainly doing Quality Assurance for the MLG Video and the Gamebattles competition platforms. Durring this time I was able to learn the fundementals of professional web development.</p>',
           showBody: false
         },
         {
-          date: 'TBD',
+          date: '2013-2015',
           color: 'blue',
-          icon: 'mdi-buffer',
-          title: 'Hired by MLG',
-          body: '',
+          icon: 'mdi-controller-classic-outline',
+          title: 'MLG Full Time',
+          body: '<p>After my internship I was brought on as a full time contractor and then shortly after converted to a full time employee.</p><p>I was exposed to and learned many different technologies in the early years at MLG. I worked on PHP, Ruby, and Node.js backends and jQuery, Backbone, and Angular frontends. Some of the projects I was heavily invlolved with were player metrics, steraming partner dashboard, chat, streaming tools, anti-adblock, and many others</p>',
           showBody: false
         },
         {
-          date: 'TBD',
-          color: 'blue',
-          icon: 'mdi-book-variant',
-          title: 'The Early Years',
-          body: '',
-          showBody: false
-        },
-        {
-          date: 'TBD',
-          color: 'blue',
-          icon: 'mdi-book-variant',
-          title: 'Getting Traction',
-          body: '',
-          showBody: false
-        },
-        {
-          date: 'TBD',
-          color: 'blue',
-          icon: 'mdi-buffer',
+          date: 'Dec, 2015',
+          color: 'yellow darken-2',
+          icon: 'mdi-merge',
           title: 'Aquisition',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -116,7 +102,7 @@ export default {
           color: 'blue',
           icon: 'mdi-airballoon',
           title: 'Enhanced Viewing Experience',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -124,7 +110,7 @@ export default {
           color: 'blue',
           icon: 'mdi-hammer',
           title: 'Doom Hammer',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -132,7 +118,7 @@ export default {
           color: 'blue',
           icon: 'mdi-buffer',
           title: 'Web Socket Chat',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -140,7 +126,7 @@ export default {
           color: 'blue',
           icon: 'mdi-helicopter',
           title: 'Helicopter',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -148,7 +134,7 @@ export default {
           color: 'blue',
           icon: 'mdi-book-variant',
           title: 'MLG.com',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -156,7 +142,7 @@ export default {
           color: 'blue',
           icon: 'mdi-airballoon',
           title: 'Alleycat',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -164,7 +150,7 @@ export default {
           color: 'blue',
           icon: 'mdi-buffer',
           title: 'Sentinel',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -172,7 +158,7 @@ export default {
           color: 'red darken-2',
           icon: 'mdi-hiking',
           title: 'Norway',
-          body: '',
+          body: '<p></p>',
           showBody: false
         },
         {
@@ -180,7 +166,7 @@ export default {
           color: 'purple darken-1',
           icon: 'mdi-crystal-ball',
           title: 'Next',
-          body: '',
+          body: '<p></p>',
           showBody: false
         }
       ],
@@ -197,6 +183,7 @@ export default {
   methods: {
     visibilityChanged(isVisible, entry) {
       if (!isVisible) {
+        // entry.target.classList.remove('show')
         return
       }
       entry.target.classList.add('show')

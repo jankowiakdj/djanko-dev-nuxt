@@ -15,14 +15,14 @@
           <div class="subtitle">Full Stack Developer</div>
         </div>
         <main-menu :go-to-story="goToStory" />
-        <scroll-down-button :action="goToStory" />
+        <!-- <scroll-down-button :action="goToStory" /> -->
       </v-col>
     </v-row>
-    <v-row ref="timeline" justify="center" align="center">
-      <v-col cols="10">
+    <!-- <v-row ref="timeline" justify="center" align="center">
+      <v-col cols="10" class="timeline-col">
         <my-timeline />
       </v-col>
-    </v-row>
+    </v-row> -->
   </div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     goToStory() {
-      this.$refs.timeline.scrollIntoView()
+      // this.$refs.timeline.scrollIntoView()
     }
   }
 }
@@ -63,5 +63,11 @@ export default {
   font-size: 12px;
   margin-top: 8px;
   margin-bottom: 4px;
+}
+.timeline-col {
+  padding: 0px;
+}
+.dark-bg {
+  color: #ddd;
 }
 </style>
