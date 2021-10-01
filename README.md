@@ -1,5 +1,7 @@
 # djanko-dev-nuxt
 
+[djanko.dev](https://djanko.dev) - WIP
+
 ## Build Setup
 
 ```bash
