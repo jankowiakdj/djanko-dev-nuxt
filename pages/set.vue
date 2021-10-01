@@ -14,6 +14,30 @@
       </v-row>
     </div>
     <div v-if="current === 'analyze'">
+      <div class="text-h5">Cards ({{ cards.length }}):</div>
+      <div
+        v-for="(card, i) in cards"
+        :key="i"
+        class="card"
+        :class="attrClasses(card)"
+      >
+        SSS
+      </div>
+
+      <div class="text-h5 mt-4">Sets ({{ sets.length }}):</div>
+      <div v-for="(set, i) in sets" :key="i" class="set">
+        <div
+          v-for="(card, i) in set"
+          :key="i"
+          class="card"
+          :class="attrClasses(card)"
+        >
+          SSS
+        </div>
+      </div>
+
+      <div class="text-h5 mt-4 mb-2">Add:</div>
+
       <v-row v-if="analyzeStage === 'color'" justify="center" align="center">
         <v-col v-for="(color, i) in COLORS" :key="i" cols="12">
           <v-btn x-large block :color="color" @click="setColor(color)"></v-btn>
@@ -36,6 +60,14 @@
           }}</v-btn>
         </v-col>
       </v-row>
+
+      <v-divider class="ma-6"></v-divider>
+
+      <v-row>
+        <v-col cols="12">
+          <v-btn x-large block @click="reset()">Reset</v-btn>
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
@@ -51,7 +83,8 @@ export default {
       FILL: ['filled', 'empty', 'striped'],
       analyzeStage: 'color',
       pending: {},
-      cards: []
+      cards: [],
+      sets: []
     }
   },
   head() {
@@ -59,8 +92,15 @@ export default {
       title: 'Set'
     }
   },
+
   mounted() {},
   methods: {
+    reset() {
+      this.cards = []
+      this.sets = []
+      this.pending = {}
+      this.analyzeStage = 'color'
+    },
     setColor(color) {
       this.pending.color = color
       this.analyzeStage = 'shape'
@@ -84,9 +124,13 @@ export default {
     resetPending() {
       console.log(this.pending)
       console.log(this.cards)
-      console.log('sets: ', this.analyze(this.cards))
+      this.sets = this.analyze(this.cards)
       this.pending = {}
       this.analyzeStage = 'color'
+    },
+
+    attrClasses(card) {
+      return `color-${card.color}`
     },
 
     analyze(cards) {
@@ -137,4 +181,26 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.card {
+  width: 45px;
+  height: 33px;
+  border: 1px solid #888;
+  line-height: 33px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 4px;
+}
+
+.color-red {
+  color: red;
+}
+.color-green {
+  color: green;
+}
+.color-purple {
+  color: purple;
+}
+</style>
